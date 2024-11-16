@@ -1,0 +1,26 @@
+class Solution {
+    public int findLengthOfShortestSubarray(int[] arr) {
+        int n = arr.length;
+        int j = n-1;
+        //to find the correct jth element in non decreasing order
+        while( j>0 && arr[j]>=arr[j-1]){
+            j--;
+        }
+        // if the array is already sorted no need to remove any elements
+        if(j==0){
+            return 0;
+        }
+        int i=0;
+        int result =j;
+        //removing all the elements before j because al are sorted till n-1
+        while(i<j && (i==0 ||arr[i]>=arr[i-1])) {
+            //move j to find the correct index
+            while(j<n &&  arr[i]>arr[j]){
+                j++;
+            }
+            result =Math.min(result,j-i-1);
+            i++;
+        }
+        return result;
+    }
+}
